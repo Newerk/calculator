@@ -1,4 +1,4 @@
-var displayValue = 0;
+var displayValue = '';
 var num1 = 0;
 var num2 = 0;
 
@@ -103,7 +103,6 @@ const operate = (operator, x, y) => {
 
     return display.textContent;
 };
-
 
 function negativeToggle() {
     let value = displayValue.toString();
