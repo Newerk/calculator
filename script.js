@@ -1,18 +1,19 @@
 var input1 = 0;
-var input2 = 0;
+var input2 = 0; 
 var display = document.querySelector('#display');
 
-
-//Need to make an event listener tied to the container of numbers, rather than each number individually (DRY Method)
+//When number buttons are pressed, it is displayed on the calc in the order they were selected
 let numButtons = document.querySelectorAll('.numbers');
 numButtons.forEach(btn => {
     btn.addEventListener('click', e => {
         display.textContent += e.target.textContent;
         input1 = parseInt(display.textContent);
+        // console.log(input1);
     })
 });
 
-
+let clearButton = document.querySelector('#clear');
+clearButton.addEventListener('click', clear);
 
 
 const add = (num1, num2) => num1 + num2;
@@ -55,7 +56,12 @@ const operate = (operator, num1, num2) => {
     return display.textContent;
 };
 
-
+//clears calc display and reset all values to defaults
+function clear() {
+    input1 = 0;
+    input2 = 0;
+    display.textContent = '';
+}
 
 // operate(power, 3, 5);//243
 
