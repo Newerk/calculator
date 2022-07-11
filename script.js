@@ -28,6 +28,11 @@ const operate = (operator, num1, num2) => {
 
             break;
 
+        case power:
+            result = power(num1, num2);
+
+            break;
+
         default:
             alert('Not an operator button');
             break;
@@ -38,7 +43,7 @@ const operate = (operator, num1, num2) => {
 
 
 
-console.log(operate('what',300,5));
+console.log(operate(power, 3, 5));//243
 
 // console.log(add(1, 2));//3
 
