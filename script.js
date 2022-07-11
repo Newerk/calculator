@@ -8,8 +8,10 @@ let numButtons = document.querySelectorAll('.numbers');
 numButtons.forEach(btn => {
     btn.addEventListener('click', e => {
         display.textContent += e.target.textContent;
+        input1 = parseInt(display.textContent);
     })
-})
+});
+
 
 
 
