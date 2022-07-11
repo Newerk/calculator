@@ -10,8 +10,6 @@ numButtons.forEach(btn => {
     btn.addEventListener('click', e => {
         display.textContent += e.target.textContent;
         displayValue = parseInt(display.textContent);
-        // console.log(displayValue);
-        // console.log(displayValue.toString()[3])
     })
 
 });
@@ -19,29 +17,7 @@ numButtons.forEach(btn => {
 // let operatorButtons = document.querySelectorAll('.operators');
 // operatorButtons.forEach(btn => {
 //     btn.addEventListener('click', e => {
-//         let x = displayValue;
-//         console.log(num1);
 
-        // switch (e.target.id) {
-        //     case "add":
-
-        //         break;
-        //     case "subtract":
-
-        //         break;
-        //     case "multiply":
-
-        //         break;
-        //     case "divide":
-
-        //         break;
-        //     case "power":
-
-        //         break;
-
-        //     default:
-        //         break;
-        // }
 //     })
 // })
 
@@ -50,6 +26,9 @@ negBtn.addEventListener('click', negativeToggle);
 
 let clearBtn = document.querySelector('#clear');
 clearBtn.addEventListener('click', clear);
+
+let deleteBtn = document.querySelector('#delete');
+deleteBtn.addEventListener('click', backspace);
 
 
 
@@ -64,40 +43,30 @@ const power = (x, y) => Math.pow(x, y);
 const operate = (operator, x, y) => {
 
     switch (operator) {
-        case add:
-            clear();
-            num2 = displayValue;
-            display.textContent = add(x, num2);
+        case '+':
+            display.textContent = add(x, y);
 
             break;
-        case subtract:
-            clear();
-            num2 = displayValue;
+        case '-':
             display.textContent = subtract(x, y);
 
             break;
-        case multiply:
-            clear();
-            num2 = displayValue;
+        case '*':
             display.textContent = multiply(x, y);
 
             break;
-        case divide:
-            clear();
-            num2 = displayValue;
+        case '/':
             display.textContent = divide(x, y);
 
             break;
 
-        case power:
-            clear();
-            num2 = displayValue;
+        case '^':
             display.textContent = power(x, y);
 
             break;
 
         default:
-            alert('Not an operator button');
+            alert('Not an operator');
             break;
     }
 
@@ -118,9 +87,12 @@ function negativeToggle() {
         displayValue = display.textContent
 
     }
-    // console.log(displayValue);
 }
 
+function backspace() {
+    displayValue = displayValue.toString().slice(0, displayValue.toString().length-1);
+    display.textContent = displayValue;
+}
 
 
 //clears calc display and reset all values to defaults
