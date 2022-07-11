@@ -9,27 +9,28 @@ const divide = (num1, num2) => num1 / num2;
 const power = (num1, num2) => Math.pow(num1, num2);
 
 const operate = (operator, num1, num2) => {
-    let result = 0;
+    let display = document.querySelector('#display');
+
     switch (operator) {
         case add:
-            result = add(num1, num2);
+            display.textContent = add(num1, num2);
 
             break;
         case subtract:
-            result = subtract(num1, num2);
+            display.textContent = subtract(num1, num2);
 
             break;
         case multiply:
-            result = multiply(num1, num2);
+            display.textContent = multiply(num1, num2);
 
             break;
         case divide:
-            result = divide(num1, num2);
+            display.textContent = divide(num1, num2);
 
             break;
 
         case power:
-            result = power(num1, num2);
+            display.textContent = power(num1, num2);
 
             break;
 
@@ -38,17 +39,11 @@ const operate = (operator, num1, num2) => {
             break;
     }
 
-    return result;
+    return display.textContent;
 };
 
 
 
-console.log(operate(power, 3, 5));//243
+operate(power, 3, 5);//243
 
-// console.log(add(1, 2));//3
 
-// console.log(subtract(2, 1));//1
-
-// console.log(multiply(2, 2));//4
-
-// console.log(divide(4, 2));//2
