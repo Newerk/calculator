@@ -1,12 +1,12 @@
+var input1 = 0;
+var input2 = 0;
+
 const add = (num1, num2) => num1 + num2;
-
 const subtract = (num1, num2) => num1 - num2;
-
 const multiply = (num1, num2) => num1 * num2;
-
 const divide = (num1, num2) => num1 / num2;
-
 const power = (num1, num2) => Math.pow(num1, num2);
+
 
 const operate = (operator, num1, num2) => {
     let display = document.querySelector('#display');
