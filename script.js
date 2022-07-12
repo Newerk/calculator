@@ -29,13 +29,7 @@ let miscButtons = document.querySelectorAll('.misc');
 miscButtons.forEach(btn => {
     btn.addEventListener('click', e => {
         if (e.target.id === 'decimal') {
-            if (numberIsDecimal === false) {
-                displayValue += '.';
-                display.textContent = displayValue;
-                numberIsDecimal = true;
-            }
-            console.log(numberIsDecimal);
-
+            addDecimal();
 
         } else if (e.target.id === 'negative') {
             negativeToggle();
@@ -100,6 +94,14 @@ function negativeToggle() {
 
     // }
 
+}
+
+function addDecimal() {
+    if (numberIsDecimal === false) {
+        displayValue += '.';
+        display.textContent = displayValue;
+        numberIsDecimal = true;
+    }
 }
 
 //deletes the n'th value of the number shown on the display. One more thing I want to do is have the entire display get cleared if a solution is returned after the equals button is clicked.
