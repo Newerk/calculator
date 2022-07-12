@@ -64,8 +64,8 @@ operatorButtons.forEach(btn => {
             case 'equal':
                 let getOperator = num1.toString().slice(num1.toString().length - 1, num1.toString().length);
                 num2 = display.textContent = displayValue;
-                num1 = parseInt(num1);
-                num2 = parseInt(num2);
+                num1 = parseFloat(num1);
+                num2 = parseFloat(num2);
 
                 switch (getOperator) {
                     case '+': 
