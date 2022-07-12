@@ -25,7 +25,7 @@ numButtons.forEach(btn => {
 let operatorButtons = document.querySelectorAll('.operators');
 operatorButtons.forEach(btn => {
     btn.addEventListener('click', e => {
-
+        numberIsDecimal = false;
         switch (e.target.id) {
             case 'add':
                 storeNumOne();
@@ -173,6 +173,7 @@ function addDecimal() {
         display.textContent = displayValue += '.';
         numberIsDecimal = true;
     }
+    console.log(numberIsDecimal);
 }
 
 //deletes the n'th value of the number shown on the display. One more thing I want to do is have the entire display get cleared if a solution is returned after the equals button is clicked.
