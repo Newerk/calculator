@@ -1,6 +1,6 @@
 var displayValue = '';
-var num1 = 0;
-var num2 = 0;
+var num1 = '';
+var num2 = '';
 var numberIsDecimal = false;
 console.log(numberIsDecimal);
 
@@ -112,10 +112,6 @@ miscButtons.forEach(btn => {
 });
 
 const operate = (operator, x, y) => {
-    // let result = 0;
-    parseInt(num1);
-    parseInt(num2);
-
     switch (operator) {
         case '+':
             display.textContent = add(x, y);
@@ -161,7 +157,7 @@ function negativeToggle() {
     let value = displayValue;
 
     if (value[0] !== '-') {
-        display.textContent = displayValue = `-${value}`;
+        display.textContent = displayValue = '-' + value;
 
 
     } else if (value[0] === '-') {
