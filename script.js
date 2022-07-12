@@ -11,6 +11,10 @@ const multiply = (x, y) => x * y;
 const divide = (x, y) => x / y;
 const power = (x, y) => Math.pow(x, y);
 
+/*
+calculatable expressions will be built based on button clicks. 
+related information will be stored here: 
+number left of expression(value1), number right of expression(value2), operator used to calculate expression(operator) */
 let expression = {};
 
 //When number buttons are pressed, it is displayed on the calc in the order they were selected
@@ -60,7 +64,7 @@ operatorButtons.forEach(btn => {
                 expression.value2 = display.textContent = displayValue;
                 let x = parseFloat(expression.value1);
                 let y = parseFloat(expression.value2);
-                
+
                 switch (getOperator) {
                     case '+':
                         operate('+', x, y);
