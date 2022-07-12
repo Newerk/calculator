@@ -16,8 +16,10 @@ const power = (x, y) => Math.pow(x, y);
 let numButtons = document.querySelectorAll('.numbers');
 numButtons.forEach(btn => {
     btn.addEventListener('click', e => {
-        display.textContent += e.target.textContent;
-        displayValue = display.textContent;
+        if (e.target != e.currentTarget) {
+            display.textContent += e.target.textContent;
+            displayValue = display.textContent;
+        }
     })
 
 });
