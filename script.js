@@ -24,11 +24,11 @@ numButtons.forEach(btn => {
 // })
 
 
-//there is an unintended interaction with the period button. when there is a period in the display, pressing the negative button removes the period
+//there is an unintended interaction with the decimal button. when there is a decimal in the display, pressing the negative button removes the decimal
 let miscButtons = document.querySelectorAll('.misc');
 miscButtons.forEach(btn => {
     btn.addEventListener('click', e => {
-        if (e.target.id === 'period') {
+        if (e.target.id === 'decimal') {
             if (numberIsDecimal === false) {
                 displayValue += '.';
                 display.textContent = displayValue;
@@ -103,7 +103,7 @@ function negativeToggle() {
 }
 
 //deletes the n'th value of the number shown on the display. One more thing I want to do is have the entire display get cleared if a solution is returned after the equals button is clicked.
-//if this deletes a period, it should reset numberIsDecimal to false so that the period can be reapplied whenever the user wants
+//if this deletes a decimal, it should reset numberIsDecimal to false so that the decimal can be reapplied whenever the user wants
 function backspace() {
     displayValue = displayValue.toString().slice(0, displayValue.toString().length - 1);
     display.textContent = displayValue;
