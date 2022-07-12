@@ -87,13 +87,17 @@ const operate = (operator, x, y) => {
 };
 
 function negativeToggle() {
-    // if (condition) {
+    let value = displayValue;
 
-    // } else if (condition) {
+    if (value[0] !== '-') {
+        display.textContent = `-${value}`;
+        displayValue = display.textContent;
 
+    } else if (value[0] === '-') {
+        display.textContent = value.slice(1, value.length);
+        displayValue = display.textContent
 
-    // }
-
+    }
 }
 
 function addDecimal() {
