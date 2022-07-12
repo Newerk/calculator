@@ -30,37 +30,28 @@ operatorButtons.forEach(btn => {
             case 'add':
                 storeNumOne();
                 num1 += '+';
-
-
                 break;
+
             case 'subtract':
                 storeNumOne();
-
                 num1 += '-';
-
-
                 break;
+
             case 'multiply':
                 storeNumOne();
-
                 num1 += '*';
-
-
                 break;
+
             case 'divide':
                 storeNumOne();
-
                 num1 += '/';
-
-
                 break;
+
             case 'exponent':
                 storeNumOne();
                 num1 += '^';
-
-
-
                 break;
+
             case 'equal':
                 let getOperator = num1.toString().slice(num1.toString().length - 1, num1.toString().length);
                 num2 = display.textContent = displayValue;
@@ -68,34 +59,26 @@ operatorButtons.forEach(btn => {
                 num2 = parseFloat(num2);
 
                 switch (getOperator) {
-                    case '+': 
+                    case '+':
                         operate('+', num1, num2);
-
                         break;
+                        
                     case '-':
                         operate('-', num1, num2);
-
-                        break
+                        break;
+                        
                     case '*':
                         operate('*', num1, num2);
-
-                        break
+                        break;
+                        
                     case '/':
                         operate('/', num1, num2);
-
-                        break
+                        break;
+                        
                     case '^':
                         operate('^', num1, num2);
-
-                        break
+                        break;
                 }
-
-
-                break;
-
-            default:
-                alert('clicked on the whitespace')
-                break;
         }
     })
 })
@@ -169,7 +152,7 @@ function storeNumOne() {
 
 // function removeOperator() {
 //     num1.
-    
+
 // }
 
 function negativeToggle() {
