@@ -9,7 +9,7 @@ let numButtons = document.querySelectorAll('.numbers');
 numButtons.forEach(btn => {
     btn.addEventListener('click', e => {
         display.textContent += e.target.textContent;
-        displayValue = parseInt(display.textContent);
+        displayValue = display.textContent;
     })
 
 });
@@ -21,15 +21,27 @@ numButtons.forEach(btn => {
 //     })
 // })
 
-let negBtn = document.querySelector('#pos-or-neg');
-negBtn.addEventListener('click', negativeToggle);
 
-let clearBtn = document.querySelector('#clear');
-clearBtn.addEventListener('click', clear);
+//there is an unintended interaction with the period button. when there is a period in the display, pressing the negative button removes the period
+let miscButtons = document.querySelectorAll('.misc');
+miscButtons.forEach(btn => {
+    btn.addEventListener('click', e => {
+        if (e.target.id === 'period') {
+            displayValue += '.';
+            display.textContent = displayValue;
 
-let deleteBtn = document.querySelector('#delete');
-deleteBtn.addEventListener('click', backspace);
-
+        } else if (e.target.id === 'negative') {
+            negativeToggle();
+            
+        } else if (e.target.id === 'clear') {
+            clear();
+            
+        } else if (e.target.id === 'delete') {
+            backspace();
+            
+        }
+    });
+});
 
 
 
@@ -74,21 +86,16 @@ const operate = (operator, x, y) => {
 };
 
 function negativeToggle() {
-    let value = displayValue.toString();
-
-    if (value[0] !== '-') {
-        display.textContent = `-${value}`;
-        displayValue = display.textContent;
+    // if (condition) {
         
-    }
+    // } else if (condition) {
+        
+        
+    // }
 
-    if (value[0] === '-') {
-        display.textContent = value.slice(1, value.length);
-        displayValue = display.textContent
-
-    }
 }
 
+//deletes the n'th value of the number shown on the display. One more thing I want to do is have the entire display get cleared if a solution is returned after the equals button is clicked.
 function backspace() {
     displayValue = displayValue.toString().slice(0, displayValue.toString().length-1);
     display.textContent = displayValue;
@@ -102,7 +109,5 @@ function clear() {
     num2 = 0;
     display.textContent = '';
 }
-
-// operate(power, 3, 5);//243
 
 
