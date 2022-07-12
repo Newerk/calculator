@@ -1,6 +1,8 @@
 var displayValue = '';
 var num1 = 0;
 var num2 = 0;
+var numberIsDecimal = false;
+console.log(numberIsDecimal);
 
 var display = document.querySelector('#display');
 
@@ -27,18 +29,23 @@ let miscButtons = document.querySelectorAll('.misc');
 miscButtons.forEach(btn => {
     btn.addEventListener('click', e => {
         if (e.target.id === 'period') {
-            displayValue += '.';
-            display.textContent = displayValue;
+            if (numberIsDecimal === false) {
+                displayValue += '.';
+                display.textContent = displayValue;
+                numberIsDecimal = true;
+            }
+            console.log(numberIsDecimal);
+
 
         } else if (e.target.id === 'negative') {
             negativeToggle();
-            
+
         } else if (e.target.id === 'clear') {
             clear();
-            
+
         } else if (e.target.id === 'delete') {
             backspace();
-            
+
         }
     });
 });
@@ -87,18 +94,29 @@ const operate = (operator, x, y) => {
 
 function negativeToggle() {
     // if (condition) {
-        
+
     // } else if (condition) {
-        
-        
+
+
     // }
 
 }
 
 //deletes the n'th value of the number shown on the display. One more thing I want to do is have the entire display get cleared if a solution is returned after the equals button is clicked.
+//if this deletes a period, it should reset numberIsDecimal to false so that the period can be reapplied whenever the user wants
 function backspace() {
-    displayValue = displayValue.toString().slice(0, displayValue.toString().length-1);
+    displayValue = displayValue.toString().slice(0, displayValue.toString().length - 1);
     display.textContent = displayValue;
+
+    if (displayValue.includes('.')) {
+        numberIsDecimal = true;
+        console.log(numberIsDecimal);
+
+    } else if (displayValue.includes('.') === false) {
+        numberIsDecimal = false;
+        console.log(numberIsDecimal);
+
+    }
 }
 
 
@@ -108,6 +126,7 @@ function clear() {
     num1 = 0;
     num2 = 0;
     display.textContent = '';
+    numberIsDecimal = false;
 }
 
 
