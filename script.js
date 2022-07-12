@@ -1,6 +1,5 @@
 var displayValue = '';
-var num1 = '';
-var num2 = '';
+
 var numberIsDecimal = false;
 console.log(numberIsDecimal);
 
@@ -11,6 +10,8 @@ const subtract = (x, y) => x - y;
 const multiply = (x, y) => x * y;
 const divide = (x, y) => x / y;
 const power = (x, y) => Math.pow(x, y);
+
+let expression = {};
 
 //When number buttons are pressed, it is displayed on the calc in the order they were selected
 let numButtons = document.querySelectorAll('.numbers');
@@ -31,54 +32,54 @@ operatorButtons.forEach(btn => {
         switch (e.target.id) {
             case 'add':
                 storeNumOne();
-                num1 += '+';
+                expression['operator'] = '+';
                 break;
 
             case 'subtract':
                 storeNumOne();
-                num1 += '-';
+                expression['operator'] = '-';
                 break;
 
             case 'multiply':
                 storeNumOne();
-                num1 += '*';
+                expression['operator'] = '*';
                 break;
 
             case 'divide':
                 storeNumOne();
-                num1 += '/';
+                expression['operator'] = '/';
                 break;
 
             case 'exponent':
                 storeNumOne();
-                num1 += '^';
+                expression['operator'] = '^';
                 break;
 
             case 'equal':
-                let getOperator = num1.toString().slice(num1.toString().length - 1, num1.toString().length);
-                num2 = display.textContent = displayValue;
-                num1 = parseFloat(num1);
-                num2 = parseFloat(num2);
-
+                let getOperator = expression.operator;
+                expression.value2 = display.textContent = displayValue;
+                let x = parseFloat(expression.value1);
+                let y = parseFloat(expression.value2);
+                
                 switch (getOperator) {
                     case '+':
-                        operate('+', num1, num2);
+                        operate('+', x, y);
                         break;
                         
                     case '-':
-                        operate('-', num1, num2);
+                        operate('-', x, y);
                         break;
                         
                     case '*':
-                        operate('*', num1, num2);
+                        operate('*', x, y);
                         break;
                         
                     case '/':
-                        operate('/', num1, num2);
+                        operate('/', x, y);
                         break;
                         
                     case '^':
-                        operate('^', num1, num2);
+                        operate('^', x, y);
                         break;
                 }
         }
@@ -134,24 +135,21 @@ const operate = (operator, x, y) => {
             display.textContent = power(x, y);
 
             break;
-
-        default:
-            alert('clicked on the whitespace');
-            break;
     }
 
 };
 
 function storeNumOne() {
-    num1 = displayValue;
+    expression['value1'] = displayValue;
     display.textContent = displayValue = '';
-    // console.log(num1);
+
 }
 
-// function removeOperator() {
-//     num1.
+function storeNumTwo() {
+    expression['value2'] = displayValue;
 
-// }
+
+}
 
 function negativeToggle() {
     let value = displayValue;
