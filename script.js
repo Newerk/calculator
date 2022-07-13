@@ -51,8 +51,8 @@ operatorButtons.forEach(btn => {
                     console.log('should be the 2nd numb i entered: ' + expression.value2);
                     delete expression.value2;
                     console.log(expression);
-
                     console.log('should be undefined: ' + expression.value2);
+                    display.textContent = displayValue = '';
                 } else {
                     storeNumOne();
                 }
