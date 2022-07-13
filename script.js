@@ -16,9 +16,11 @@ related information will be stored here:
 number left of expression(value1), number right of expression(value2), operator used to calculate expression(operator) */
 let expression = {
     evaluate() {
-        console.log(`type of operator: ${typeof this.operator}, 
-         type of value1: ${typeof parseFloat(this.value1)}, 
-         type of value2: ${typeof parseFloat(this.value2)}`);
+        console.log(`type of operator: ${ this.operator}, 
+         type of value1: ${ parseFloat(this.value1)}, 
+         type of value2: ${ parseFloat(this.value2)}`);
+         console.log('------------------------------');
+
         return operate(this.operator, parseFloat(this.value1), parseFloat(this.value2));
     }
 };
@@ -42,17 +44,20 @@ operatorButtons.forEach(btn => {
 
         switch (e.target.id) {
             case 'add':
-                expression['operator'] = '+';
                 if ('value1' in expression) {
-                    // display.textContent = displayValue = 
                     storeNumTwo();
-                    console.log(expression.evaluate());
-                    console.log('should be not be the 2nd numb i entered: ' + expression.value2);
+                    expression.value1 = expression.evaluate()
+                    // console.log(expression);
+                    console.log('should be the 2nd numb i entered: ' + expression.value2);
                     delete expression.value2;
+                    console.log(expression);
+
                     console.log('should be undefined: ' + expression.value2);
                 } else {
                     storeNumOne();
                 }
+                expression['operator'] = '+';
+
                 break;
 
             case 'subtract':
