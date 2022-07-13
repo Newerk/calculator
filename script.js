@@ -16,11 +16,6 @@ related information will be stored here:
 number left of expression(value1), number right of expression(value2), operator used to calculate expression(operator) */
 let expression = {
     evaluate() {
-        console.log(`type of operator: ${ this.operator}, 
-         type of value1: ${ parseFloat(this.value1)}, 
-         type of value2: ${ parseFloat(this.value2)}`);
-         console.log('------------------------------');
-
         return operate(this.operator, parseFloat(this.value1), parseFloat(this.value2));
     }
 };
@@ -45,14 +40,7 @@ operatorButtons.forEach(btn => {
         switch (e.target.id) {
             case 'add':
                 if ('value1' in expression) {
-                    storeNumTwo();
-                    expression.value1 = expression.evaluate()
-                    // console.log(expression);
-                    console.log('should be the 2nd numb i entered: ' + expression.value2);
-                    delete expression.value2;
-                    console.log(expression);
-                    console.log('should be undefined: ' + expression.value2);
-                    display.textContent = displayValue = '';
+                    evalMultipleOperations();
                 } else {
                     storeNumOne();
                 }
@@ -61,22 +49,38 @@ operatorButtons.forEach(btn => {
                 break;
 
             case 'subtract':
-                storeNumOne();
+                if ('value1' in expression) {
+                    evalMultipleOperations();
+                } else {
+                    storeNumOne();
+                }
                 expression['operator'] = '-';
                 break;
 
             case 'multiply':
-                storeNumOne();
+                if ('value1' in expression) {
+                    evalMultipleOperations();
+                } else {
+                    storeNumOne();
+                }
                 expression['operator'] = '*';
                 break;
 
             case 'divide':
-                storeNumOne();
+                if ('value1' in expression) {
+                    evalMultipleOperations();
+                } else {
+                    storeNumOne();
+                }
                 expression['operator'] = '/';
                 break;
 
             case 'exponent':
-                storeNumOne();
+                if ('value1' in expression) {
+                    evalMultipleOperations();
+                } else {
+                    storeNumOne();
+                }
                 expression['operator'] = '^';
                 break;
 
@@ -141,24 +145,24 @@ const operate = (operator, x, y) => {
             display.textContent = displayValue = power(x, y);
             return power(x, y);
 
-
     }
 
 };
 
-
-
+function evalMultipleOperations() {
+    storeNumTwo();
+    expression.value1 = expression.evaluate()
+    delete expression.value2;
+    display.textContent = displayValue = '';
+}
 
 function storeNumOne() {
     expression['value1'] = displayValue;
     display.textContent = displayValue = '';
-
 }
 
 function storeNumTwo() {
     expression['value2'] = displayValue;
-
-
 }
 
 function negativeToggle() {
