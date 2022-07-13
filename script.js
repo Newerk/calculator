@@ -15,7 +15,19 @@ const power = (x, y) => Math.pow(x, y);
 calculatable expressions will be built based on button clicks. 
 related information will be stored here: 
 number left of expression(value1), number right of expression(value2), operator used to calculate expression(operator) */
-let expression = {};
+let expression = {
+    evaluate() {
+        if (Object.keys(expression).length === 4) {
+            this.value1 = operate(this.operator, parseFloat(this.value1), parseFloat(this.value2));
+            delete this.value2;
+            delete this.operator;
+
+    } else if (Object.keys(expression).length < 4) {
+            storeNumTwo();
+            operate(this.operator, parseFloat(this.value1), parseFloat(this.value2));
+        }
+    }
+};
 
 //When number buttons are pressed, it is displayed on the calc in the order they were selected
 let numButtons = document.querySelectorAll('.numbers');
@@ -33,10 +45,13 @@ let operatorButtons = document.querySelectorAll('.operators');
 operatorButtons.forEach(btn => {
     btn.addEventListener('click', e => {
         numberIsDecimal = false;
+        // evalMultiOperators();
+
         switch (e.target.id) {
             case 'add':
                 storeNumOne();
                 expression['operator'] = '+';
+
                 break;
 
             case 'subtract':
@@ -60,32 +75,8 @@ operatorButtons.forEach(btn => {
                 break;
 
             case 'equal':
-                let getOperator = expression.operator;
-                expression.value2 = display.textContent = displayValue;
-                let x = parseFloat(expression.value1);
-                let y = parseFloat(expression.value2);
-
-                switch (getOperator) {
-                    case '+':
-                        operate('+', x, y);
-                        break;
-                        
-                    case '-':
-                        operate('-', x, y);
-                        break;
-                        
-                    case '*':
-                        operate('*', x, y);
-                        break;
-                        
-                    case '/':
-                        operate('/', x, y);
-                        break;
-                        
-                    case '^':
-                        operate('^', x, y);
-                        break;
-                }
+                expression.evaluate();
+                console.log(display.textContent);
         }
     })
 })
@@ -120,28 +111,47 @@ const operate = (operator, x, y) => {
     switch (operator) {
         case '+':
             display.textContent = add(x, y);
+            console.log(expression);
+            return add(x, y);
 
-            break;
+
+            // break;
         case '-':
             display.textContent = subtract(x, y);
+            console.log(expression);
 
-            break;
+            return subtract(x, y);
+
+
+            // break;
         case '*':
             display.textContent = multiply(x, y);
+            console.log(expression);
+            return multiply(x, y);
 
-            break;
+
+            // break;
         case '/':
             display.textContent = divide(x, y);
+            console.log(expression);
+            return divide(x, y);
 
-            break;
+
+
+            // break;
 
         case '^':
-            display.textContent = power(x, y);
+            display.textContent = displayValue = power(x, y);
+            console.log(expression);
+            return power(x, y);
 
-            break;
+
+
+            // break;
     }
 
 };
+
 
 function storeNumOne() {
     expression['value1'] = displayValue;
@@ -151,7 +161,6 @@ function storeNumOne() {
 
 function storeNumTwo() {
     expression['value2'] = displayValue;
-
 
 }
 
@@ -195,11 +204,12 @@ function backspace() {
 
 //clears calc display and reset all values to defaults
 function clear() {
-    displayValue = 0;
-    num1 = 0;
-    num2 = 0;
+    displayValue = '';
     display.textContent = '';
     numberIsDecimal = false;
+    delete expression.value1;
+    delete expression.operator;
+    delete expression.value2;
 }
 
 
