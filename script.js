@@ -49,6 +49,13 @@ operatorButtons.forEach(btn => {
 
         switch (e.target.id) {
             case 'add':
+                if (Object.keys(expression).length === 3) {
+                    storeNumTwo();
+                    console.log(`stored a number to value2, now i need to calc
+                    ${expression.value1} ${expression.operator} ${expression.value2} 
+                    = ${operate(expression.operator,parseFloat(expression.value1),parseFloat(expression.value2))}`);
+                }
+
                 storeNumOne();
                 expression['operator'] = '+';
 
@@ -167,7 +174,7 @@ const operate = (operator, x, y) => {
 
 function storeNumOne() {
     expression['value1'] = displayValue;
-    display.textContent = displayValue = null;
+    display.textContent = displayValue = '';
 
 }
 
