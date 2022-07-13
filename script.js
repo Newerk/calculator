@@ -1,5 +1,4 @@
 var displayValue = null;
-
 var numberIsDecimal = false;
 // console.log(numberIsDecimal);
 
@@ -17,16 +16,10 @@ related information will be stored here:
 number left of expression(value1), number right of expression(value2), operator used to calculate expression(operator) */
 let expression = {
     evaluate() {
-        if (Object.keys(expression).length === 4) {
-            delete this.value2;
-            this.value1 = operate(this.operator, this.value1, this.value2);
-            console.log(expression);
-
-
-        } else {
-            storeNumTwo();
-            return operate(this.operator, parseFloat(this.value1), parseFloat(this.value2));
-        }
+        console.log(`type of operator: ${typeof this.operator}, 
+         type of value1: ${typeof parseFloat(this.value1)}, 
+         type of value2: ${typeof parseFloat(this.value2)}`);
+        return operate(this.operator, parseFloat(this.value1), parseFloat(this.value2));
     }
 };
 
@@ -49,17 +42,17 @@ operatorButtons.forEach(btn => {
 
         switch (e.target.id) {
             case 'add':
-                if (Object.keys(expression).length === 3) {
-                    storeNumTwo();
-                    console.log(`stored a number to value2, now i need to calc
-                    ${expression.value1} ${expression.operator} ${expression.value2} 
-                    = ${operate(expression.operator,parseFloat(expression.value1),parseFloat(expression.value2))}`);
-                }
-
-                storeNumOne();
                 expression['operator'] = '+';
-
-
+                if ('value1' in expression) {
+                    // display.textContent = displayValue = 
+                    storeNumTwo();
+                    console.log(expression.evaluate());
+                    console.log('should be not be the 2nd numb i entered: ' + expression.value2);
+                    delete expression.value2;
+                    console.log('should be undefined: ' + expression.value2);
+                } else {
+                    storeNumOne();
+                }
                 break;
 
             case 'subtract':
@@ -83,16 +76,9 @@ operatorButtons.forEach(btn => {
                 break;
 
             case 'equal':
-                if (Object.keys(expression).length < 4) {
-                    expression.evaluate();
-                    // console.log(typeof expression.evaluate());
-
-
-                }
-            //  else if (Object.keys(expression).length === 4) {
-
-
-            // }
+                storeNumTwo()
+                expression.evaluate();
+                console.log(expression.evaluate());
         }
     })
 })
@@ -128,43 +114,29 @@ const operate = (operator, x, y) => {
     switch (operator) {
         case '+':
             display.textContent = add(x, y);
-            // console.log(typeof add(x,y));
             return add(x, y);
 
 
-        // break;
         case '-':
             display.textContent = subtract(x, y);
-            // console.log(expression);
-
             return subtract(x, y);
 
 
-        // break;
         case '*':
             display.textContent = multiply(x, y);
-            // console.log(expression);
             return multiply(x, y);
 
 
-        // break;
         case '/':
             display.textContent = divide(x, y);
-            // console.log(expression);
             return divide(x, y);
 
 
-
-        // break;
-
         case '^':
             display.textContent = displayValue = power(x, y);
-            // console.log(expression);
             return power(x, y);
 
 
-
-        // break;
     }
 
 };
