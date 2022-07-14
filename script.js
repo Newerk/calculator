@@ -1,7 +1,7 @@
-var displayValue = null;
-var numberIsDecimal = false;
-var equalBtnPressed = false;
-var display = document.querySelector('#display');
+let displayValue = undefined;
+let numberIsDecimal = false;
+let equalBtnPressed = false;
+let display = document.querySelector('#display');
 
 const add = (x, y) => x + y;
 const subtract = (x, y) => x - y;
@@ -27,6 +27,7 @@ numButtons.forEach(btn => {
             display.textContent += e.target.textContent;
             displayValue = display.textContent;
         }
+        console.log(expression);
     })
 
 });
@@ -44,6 +45,7 @@ operatorButtons.forEach(btn => {
                     storeNumOne();
                 }
                 expression['operator'] = '+';
+                console.log(expression);
 
                 break;
 
@@ -54,6 +56,8 @@ operatorButtons.forEach(btn => {
                     storeNumOne();
                 }
                 expression['operator'] = '-';
+                console.log(expression);
+
                 break;
 
             case 'multiply':
@@ -63,6 +67,8 @@ operatorButtons.forEach(btn => {
                     storeNumOne();
                 }
                 expression['operator'] = '*';
+                console.log(expression);
+
                 break;
 
             case 'divide':
@@ -72,6 +78,8 @@ operatorButtons.forEach(btn => {
                     storeNumOne();
                 }
                 expression['operator'] = '/';
+                console.log(expression);
+
                 break;
 
             case 'exponent':
@@ -81,12 +89,16 @@ operatorButtons.forEach(btn => {
                     storeNumOne();
                 }
                 expression['operator'] = '^';
+                console.log(expression);
+
                 break;
 
             case 'equal':
                 storeNumTwo()
                 expression.evaluate();
                 equalBtnPressed = false;
+                console.log(expression);
+
         }
     })
 });
@@ -100,18 +112,26 @@ miscButtons.forEach(btn => {
         switch (e.target.id) {
             case 'decimal':
                 addDecimal();
+                console.log(expression);
+
                 break;
 
             case 'negative':
                 negativeToggle();
+                console.log(expression);
+
                 break;
 
             case 'clear':
                 clear();
+                console.log(expression);
+
                 break;
 
             case 'delete':
                 backspace();
+                console.log(expression);
+
                 break;
 
         }
@@ -122,26 +142,36 @@ const operate = (operator, x, y) => {
     switch (operator) {
         case '+':
             display.textContent = add(x, y);
+            console.log(expression);
+
             return add(x, y);
 
 
         case '-':
             display.textContent = subtract(x, y);
+            console.log(expression);
+
             return subtract(x, y);
 
 
         case '*':
             display.textContent = multiply(x, y);
+            console.log(expression);
+
             return multiply(x, y);
 
 
         case '/':
             display.textContent = divide(x, y);
+            console.log(expression);
+
             return divide(x, y);
 
 
         case '^':
             display.textContent = displayValue = power(x, y);
+            console.log(expression);
+
             return power(x, y);
 
     }
@@ -152,16 +182,25 @@ function evalMultipleOperations() {
     storeNumTwo();
     expression.value1 = expression.evaluate()
     delete expression.value2;
-    display.textContent = displayValue = '';
+    display.textContent = displayValue = undefined;
+    console.log(expression);
+
 }
 
 function storeNumOne() {
-    expression['value1'] = displayValue;
-    display.textContent = displayValue = '';
+    expression['value1'] = parseFloat(displayValue);
+    console.log('storenumone used and setting v1 to displayValue' + expression['value1']);
+    display.textContent = displayValue = undefined;
+    console.log(expression);
+
 }
 
 function storeNumTwo() {
-    expression['value2'] = displayValue;
+    expression['value2'] = parseFloat(displayValue);
+    console.log('storenumTWO used and setting v2 to displayValue' + expression['value1']);
+
+    console.log(expression);
+
 }
 
 function negativeToggle() {
@@ -169,10 +208,14 @@ function negativeToggle() {
 
     if (value[0] !== '-') {
         display.textContent = displayValue = '-' + value;
+        console.log(expression);
+
 
 
     } else if (value[0] === '-') {
         display.textContent = displayValue = value.slice(1, value.length);
+        console.log(expression);
+
 
     }
 }
@@ -181,6 +224,8 @@ function addDecimal() {
     if (numberIsDecimal === false) {
         display.textContent = displayValue += '.';
         numberIsDecimal = true;
+        console.log(expression);
+
     }
 }
 
@@ -196,17 +241,21 @@ function backspace() {
         numberIsDecimal = false;
 
     }
+    console.log(expression);
+
 }
 
 
 //clears calc display and reset all values to defaults
 function clear() {
-    displayValue = null;
-    display.textContent = '';
+    displayValue = undefined;
+    display.textContent = undefined;
     numberIsDecimal = false;
     delete expression.value1;
     delete expression.operator;
     delete expression.value2;
+    console.log(expression);
+
 
 }
 
