@@ -1,7 +1,6 @@
 var displayValue = null;
 var numberIsDecimal = false;
-// console.log(numberIsDecimal);
-
+var equalBtnPressed = false;
 var display = document.querySelector('#display');
 
 const add = (x, y) => x + y;
@@ -87,10 +86,10 @@ operatorButtons.forEach(btn => {
             case 'equal':
                 storeNumTwo()
                 expression.evaluate();
-                console.log(expression.evaluate());
+                equalBtnPressed = false;
         }
     })
-})
+});
 
 
 
@@ -183,7 +182,6 @@ function addDecimal() {
         display.textContent = displayValue += '.';
         numberIsDecimal = true;
     }
-    console.log(numberIsDecimal);
 }
 
 //deletes the n'th value of the number shown on the display. One more thing I want to do is have the entire display get cleared if a solution is returned after the equals button is clicked.
@@ -193,11 +191,9 @@ function backspace() {
 
     if (displayValue.includes('.')) {
         numberIsDecimal = true;
-        console.log(numberIsDecimal);
 
     } else if (displayValue.includes('.') === false) {
         numberIsDecimal = false;
-        console.log(numberIsDecimal);
 
     }
 }
@@ -211,6 +207,7 @@ function clear() {
     delete expression.value1;
     delete expression.operator;
     delete expression.value2;
+
 }
 
 
