@@ -2,6 +2,7 @@ let displayValue = undefined;
 let numberIsDecimal = false;
 let equalBtnPressed = false;
 let display = document.querySelector('#display');
+let evalNumber = undefined;
 
 const add = (x, y) => x + y;
 const subtract = (x, y) => x - y;
@@ -75,7 +76,8 @@ operatorButtons.forEach(btn => {
 
             case 'equal':
                 storeNumTwo();
-                expression.evaluate();
+                evalNumber = expression.evaluate();
+                console.log('eval number is '+evalNumber + ' and its typeof is '+ typeof evalNumber);
                 equalBtnPressed = false;
                 console.log(expression);
 
@@ -194,18 +196,22 @@ function storeNumTwo() {
 }
 
 function negativeToggle() {
-    let value = displayValue;
+console.log(`display value is : ${display.textContent}`)
+    if (Math.sign(display.textContent) !== -1) {
+        display.textContent *= -1;
+        displayValue = display.textContent;
+        
+        // parseFloat(displayValue);
+        // console.log(expression);
+        // console.log(`adding negative to ${displayValue}`);
 
-    if (value[0] !== '-') {
-        display.textContent = displayValue = '-' + value;
-        console.log(expression);
 
 
-
-    } else if (value[0] === '-') {
-        display.textContent = displayValue = value.slice(1, value.length);
-        console.log(expression);
-
+    } else if (Math.sign(display.textContent) !== 1) {
+        display.textContent *= -1;
+        displayValue = display.textContent;
+        // console.log(expression);
+        // console.log(`removing negative from ${displayValue}`);
 
     }
 }
@@ -240,6 +246,7 @@ function backspace() {
 function clear() {
     displayValue = undefined;
     display.textContent = undefined;
+    evalNumber = undefined;
     numberIsDecimal = false;
     delete expression.value1;
     delete expression.operator;
