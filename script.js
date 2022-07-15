@@ -194,18 +194,19 @@ function negativeToggle() {
     } else if (Math.sign(display.textContent) === 1) {
         evalNum = display.textContent *= -1;
         displayValue = display.textContent;
-        // expression.value1 = displayValue;
 
 
     } else if (Math.sign(display.textContent) === -1) {
         evalNum = display.textContent *= -1;
         displayValue = display.textContent;
-        // expression.value1 = displayValue;
     }
 }
 
 function addDecimal() {
     if (numberIsDecimal === false) {
+        if (displayValue === undefined) {
+            displayValue = 0;
+        }
         display.textContent = displayValue += '.';
         numberIsDecimal = true;
         console.log(expression);
