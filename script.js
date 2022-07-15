@@ -1,8 +1,8 @@
 let displayValue = undefined;
 let numberIsDecimal = false;
 let equalBtnPressed = false;
+let evalNum = undefined;
 let display = document.querySelector('#display');
-let evalNumber = undefined;
 
 const add = (x, y) => x + y;
 const subtract = (x, y) => x - y;
@@ -76,10 +76,10 @@ operatorButtons.forEach(btn => {
 
             case 'equal':
                 storeNumTwo();
-                evalNumber = expression.evaluate();
-                console.log('eval number is '+evalNumber + ' and its typeof is '+ typeof evalNumber);
+                expression.evaluate();
                 equalBtnPressed = false;
                 console.log(expression);
+                console.log('eval is ' + evalNum);
 
         }
     })
@@ -123,36 +123,31 @@ miscButtons.forEach(btn => {
 const operate = (operator, x, y) => {
     switch (operator) {
         case '+':
-            display.textContent = add(x, y);
-            console.log(expression);
+            evalNum = display.textContent = add(x, y);
 
             return add(x, y);
 
 
         case '-':
-            display.textContent = subtract(x, y);
-            console.log(expression);
+            evalNum = display.textContent = subtract(x, y);
 
             return subtract(x, y);
 
 
         case '*':
-            display.textContent = multiply(x, y);
-            console.log(expression);
+            evalNum = display.textContent = multiply(x, y);
 
             return multiply(x, y);
 
 
         case '/':
-            display.textContent = divide(x, y);
-            console.log(expression);
+            evalNum = display.textContent = divide(x, y);
 
             return divide(x, y);
 
 
         case '^':
-            display.textContent = displayValue = power(x, y);
-            console.log(expression);
+            evalNum = display.textContent = power(x, y);
 
             return power(x, y);
 
@@ -171,7 +166,7 @@ function determineInputBehavior() {
 
 function evalMultipleOperations() {
     storeNumTwo();
-    expression['value1'] = expression.evaluate()
+    expression['value1'] = evalNum;
     delete expression.value2;
     delete expression.operator;
     display.textContent = displayValue = undefined;
@@ -181,38 +176,31 @@ function evalMultipleOperations() {
 
 function storeNumOne() {
     expression['value1'] = parseFloat(displayValue);
-    console.log('storenumone used and setting v1 to displayValue: ' + expression['value1']);
     display.textContent = displayValue = undefined;
-    console.log(expression);
 
 }
 
 function storeNumTwo() {
     expression['value2'] = parseFloat(displayValue);
-    console.log('storenumTWO used and setting v2 to displayValue: ' + expression['value1']);
 
-    console.log(expression);
 
 }
 
 function negativeToggle() {
-console.log(`display value is : ${display.textContent}`)
-    if (Math.sign(display.textContent) !== -1) {
-        display.textContent *= -1;
+    console.log(`display value is : ${display.textContent}`)
+    if (displayValue === undefined) {
+        return;
+
+    } else if (Math.sign(display.textContent) === 1) {
+        evalNum = display.textContent *= -1;
         displayValue = display.textContent;
-        
-        // parseFloat(displayValue);
-        // console.log(expression);
-        // console.log(`adding negative to ${displayValue}`);
+        // expression.value1 = displayValue;
 
 
-
-    } else if (Math.sign(display.textContent) !== 1) {
-        display.textContent *= -1;
+    } else if (Math.sign(display.textContent) === -1) {
+        evalNum = display.textContent *= -1;
         displayValue = display.textContent;
-        // console.log(expression);
-        // console.log(`removing negative from ${displayValue}`);
-
+        // expression.value1 = displayValue;
     }
 }
 
@@ -246,8 +234,8 @@ function backspace() {
 function clear() {
     displayValue = undefined;
     display.textContent = undefined;
-    evalNumber = undefined;
     numberIsDecimal = false;
+    evalNum = undefined;
     delete expression.value1;
     delete expression.operator;
     delete expression.value2;
