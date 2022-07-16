@@ -1,8 +1,48 @@
+button {
+    height: 41px;
+    width: 115px;
+    border: 1px solid black;
+    padding: 0;
+
+}
+
+
+body {
+    display: flex;
+    justify-content: center;
+    font-size: 38px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+
 .display-container {
     display: flex;
     justify-content: flex-end;
-    height: 18px;
-    width: 60px;
+    flex-direction: column;
+    align-items: flex-end;
+    height: 80px;
     border: 1px solid black;
+    margin: 0;
 
+}
+
+#display {
+    margin-right: 5px;
+}
+
+.calculator-container {
+    display: flex;
+    flex-direction: column;
+    width: 460px;
+    height: fit-content;
+    border: 1px solid black;
+    margin-top: 10%;
+}
+
+.row-one,
+.row-two,
+.row-three,
+.row-four,
+.row-five {
+    display: flex;
 }

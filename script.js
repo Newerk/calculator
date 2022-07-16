@@ -1,8 +1,10 @@
 let displayValue = undefined;
 let numberIsDecimal = false;
-let equalBtnPressed = false;
-let evalNum = undefined;
+let equalBtnUsed = false;
 let display = document.querySelector('#display');
+
+
+
 
 const add = (x, y) => x + y;
 const subtract = (x, y) => x - y;
@@ -24,11 +26,10 @@ let expression = {
 let numButtons = document.querySelectorAll('.numbers');
 numButtons.forEach(btn => {
     btn.addEventListener('click', e => {
-        if (e.target != e.currentTarget) {
-            display.textContent += e.target.textContent;
-            displayValue = display.textContent;
-        }
-        console.log(expression);
+        display.textContent += e.target.textContent;
+        displayValue = display.textContent;
+        // parseFloat(displayValue);
+        equalBtnUsed = false;
     })
 
 });
@@ -39,50 +40,112 @@ operatorButtons.forEach(btn => {
         numberIsDecimal = false;
 
         switch (e.target.id) {
-            case 'add':
-                determineInputBehavior();
-                expression['operator'] = '+';
-                console.log(expression);
 
+            case 'add':
+                equalBtnUsed = false;
+                if (displayValue === undefined) {
+                    return;
+                }
+                determineInputBehavior();
+
+
+
+                if ('operator' in expression) {
+                    expression.value1 = expression.evaluate();
+                    display.textContent += expression.operator = '+';
+                    return;
+                }
+                expression['operator'] = '+';
+                display.textContent += expression['operator'];
                 break;
 
             case 'subtract':
+                equalBtnUsed = false;
+                if (displayValue === undefined) {
+                    return;
+                }
                 determineInputBehavior();
-                expression['operator'] = '-';
-                console.log(expression);
 
+
+                if ('operator' in expression) {
+                    expression.value1 = expression.evaluate();
+                    display.textContent += expression.operator = '-';
+
+                    return;
+
+                }
+                expression['operator'] = '-';
+                display.textContent += expression['operator'];
                 break;
 
             case 'multiply':
+                equalBtnUsed = false;
+                if (displayValue === undefined) {
+                    return;
+                }
                 determineInputBehavior();
-                expression['operator'] = '*';
-                console.log(expression);
 
+
+
+                if ('operator' in expression) {
+                    expression.value1 = expression.evaluate();
+                    display.textContent += expression.operator = '*';
+
+                    return;
+
+                }
+                expression['operator'] = '*';
+                display.textContent += expression['operator'];
                 break;
 
             case 'divide':
+                equalBtnUsed = false;
+                if (displayValue === undefined) {
+                    return;
+                }
                 determineInputBehavior();
-                expression['operator'] = '/';
-                console.log(expression);
 
+
+
+                if ('operator' in expression) {
+                    expression.value1 = expression.evaluate();
+                    display.textContent += expression.operator = '/';
+
+                    return;
+
+                }
+                expression['operator'] = '/';
+                display.textContent += expression['operator'];
                 break;
 
             case 'exponent':
+                equalBtnUsed = false
+                if (displayValue === undefined) {
+                    return;
+                }
+
                 determineInputBehavior();
+
+
+
+                if ('operator' in expression) {
+                    expression.value1 = expression.evaluate();
+                    display.textContent += expression.operator = '^';
+
+                    return;
+
+                }
+
                 expression['operator'] = '^';
-                console.log(expression);
+                display.textContent += expression['operator'];
 
                 break;
 
-            case 'equal':
-                storeNumTwo();
-                expression.evaluate();
-                equalBtnPressed = false;
-                console.log(expression);
-                console.log('eval is ' + evalNum);
-
         }
+        console.log(expression);
+
     })
+
 });
 
 
@@ -90,116 +153,139 @@ operatorButtons.forEach(btn => {
 let miscButtons = document.querySelectorAll('.misc');
 miscButtons.forEach(btn => {
     btn.addEventListener('click', e => {
-
         switch (e.target.id) {
             case 'decimal':
                 addDecimal();
-                console.log(expression);
 
                 break;
 
             case 'negative':
                 negativeToggle();
-                console.log(expression);
 
                 break;
 
             case 'clear':
                 clear();
-                console.log(expression);
 
                 break;
 
             case 'delete':
                 backspace();
-                console.log(expression);
 
                 break;
 
+            case 'equal':
+                if (displayValue === undefined) {
+                    return;
+                }
+                determineInputBehavior();
+                expression.evaluate();
+                equalBtnUsed = true;
+                break;
+
         }
+        console.log(expression);
+
     });
 });
 
 const operate = (operator, x, y) => {
     switch (operator) {
         case '+':
-            evalNum = display.textContent = add(x, y);
+            display.textContent = add(x, y);
 
             return add(x, y);
 
 
         case '-':
-            evalNum = display.textContent = subtract(x, y);
+            display.textContent = subtract(x, y);
 
             return subtract(x, y);
 
 
         case '*':
-            evalNum = display.textContent = multiply(x, y);
+            display.textContent = multiply(x, y);
 
             return multiply(x, y);
 
 
         case '/':
-            evalNum = display.textContent = divide(x, y);
+            display.textContent = divide(x, y);
 
             return divide(x, y);
 
 
         case '^':
-            evalNum = display.textContent = power(x, y);
+            display.textContent = power(x, y);
 
             return power(x, y);
 
     }
+    console.log(expression);
+
 
 };
 
-
 function determineInputBehavior() {
-    if ('value1' in expression) {
-        evalMultipleOperations();
-    } else {
-        storeNumOne();
-    }
-}
-
-function evalMultipleOperations() {
-    storeNumTwo();
-    expression['value1'] = evalNum;
-    delete expression.value2;
-    delete expression.operator;
-    display.textContent = displayValue = undefined;
-    console.log(expression);
+    ('value1' in expression) ? storeNumTwo() : storeNumOne();
 
 }
+
+
 
 function storeNumOne() {
-    expression['value1'] = parseFloat(displayValue);
-    display.textContent = displayValue = undefined;
+    expression['value1'] = parseFloat(display.textContent);
+    console.log(`${displayValue} stored in value 1`)
 
 }
 
 function storeNumTwo() {
-    expression['value2'] = parseFloat(displayValue);
+    expression['value2'] = parseFloat(display.textContent.substring(display.textContent.indexOf(expression.operator) + 1));
+    console.log(`${expression['value2']} stored in value 2`)
+
 
 
 }
 
 function negativeToggle() {
-    console.log(`display value is : ${display.textContent}`)
     if (displayValue === undefined) {
         return;
 
-    } else if (Math.sign(display.textContent) === 1) {
-        evalNum = display.textContent *= -1;
+    }
+    else if (Math.sign(display.textContent) === 1 && equalBtnUsed === true) {
+        clearExpression();
+        display.textContent *= -1;
         displayValue = display.textContent;
+        parseFloat(displayValue);
+
+
+    } else if (Math.sign(display.textContent) === -1 && equalBtnUsed === true) {
+        clearExpression();
+        display.textContent *= -1;
+        displayValue = display.textContent;
+        parseFloat(displayValue);
+
+
+    }
+    else if (Math.sign(display.textContent) === 1) {
+        display.textContent *= -1;
+        displayValue = display.textContent;
+        parseFloat(displayValue);
+
 
 
     } else if (Math.sign(display.textContent) === -1) {
-        evalNum = display.textContent *= -1;
+        display.textContent *= -1;
         displayValue = display.textContent;
+        parseFloat(displayValue);
+
     }
+
+
+    console.log(`display value is : ${display.textContent}`)
+    console.log(expression);
+
+
 }
 
 function addDecimal() {
@@ -207,17 +293,20 @@ function addDecimal() {
         if (displayValue === undefined) {
             displayValue = 0;
         }
-        display.textContent = displayValue += '.';
+        displayValue = display.textContent += '.';
+        parseFloat(displayValue);
         numberIsDecimal = true;
-        console.log(expression);
 
     }
+    console.log(expression);
+
 }
 
-//deletes the n'th value of the number shown on the display. One more thing I want to do is have the entire display get cleared if a solution is returned after the equals button is clicked.
+//deletes the n'th value of the number shown on the display. One more thing I want to 
 //if this deletes a decimal, it should reset numberIsDecimal to false so that the decimal can be reapplied whenever the user wants
 function backspace() {
-    display.textContent = displayValue = displayValue.slice(0, -1);
+    display.textContent = displayValue = display.textContent.slice(0, -1);
+    clearExpression();
 
     if (displayValue.includes('.')) {
         numberIsDecimal = true;
@@ -226,6 +315,8 @@ function backspace() {
         numberIsDecimal = false;
 
     }
+    parseFloat(displayValue);
+
     console.log(expression);
 
 }
@@ -235,14 +326,20 @@ function backspace() {
 function clear() {
     displayValue = undefined;
     display.textContent = undefined;
+    equalBtnUsed = true;
     numberIsDecimal = false;
-    evalNum = undefined;
     delete expression.value1;
     delete expression.operator;
     delete expression.value2;
     console.log(expression);
 
-
 }
+
+function clearExpression() {
+    delete expression.value1;
+    delete expression.operator;
+    delete expression.value2;
+}
+
 
 
