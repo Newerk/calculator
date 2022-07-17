@@ -28,8 +28,18 @@ numButtons.forEach(btn => {
     btn.addEventListener('click', e => {
         display.textContent += e.target.textContent;
         displayValue = display.textContent;
-        // parseFloat(displayValue);
+
+        if (equalBtnUsed === true) {
+            console.log(`= button used`);
+            storeNumOne();
+            delete expression.value2;
+            delete expression.operator;
+            console.log(`${displayValue} store in value 1`);
+            console.log(expression);
+        }
+
         equalBtnUsed = false;
+
     })
 
 });
@@ -38,17 +48,15 @@ let operatorButtons = document.querySelectorAll('.operators');
 operatorButtons.forEach(btn => {
     btn.addEventListener('click', e => {
         numberIsDecimal = false;
+        equalBtnUsed = false;
+
 
         switch (e.target.id) {
-
             case 'add':
-                equalBtnUsed = false;
                 if (displayValue === undefined) {
                     return;
                 }
                 determineInputBehavior();
-
-
 
                 if ('operator' in expression) {
                     expression.value1 = expression.evaluate();
@@ -60,7 +68,6 @@ operatorButtons.forEach(btn => {
                 break;
 
             case 'subtract':
-                equalBtnUsed = false;
                 if (displayValue === undefined) {
                     return;
                 }
@@ -79,7 +86,6 @@ operatorButtons.forEach(btn => {
                 break;
 
             case 'multiply':
-                equalBtnUsed = false;
                 if (displayValue === undefined) {
                     return;
                 }
@@ -99,7 +105,6 @@ operatorButtons.forEach(btn => {
                 break;
 
             case 'divide':
-                equalBtnUsed = false;
                 if (displayValue === undefined) {
                     return;
                 }
@@ -119,7 +124,6 @@ operatorButtons.forEach(btn => {
                 break;
 
             case 'exponent':
-                equalBtnUsed = false
                 if (displayValue === undefined) {
                     return;
                 }
@@ -180,6 +184,7 @@ miscButtons.forEach(btn => {
                 }
                 determineInputBehavior();
                 expression.evaluate();
+                clearExpression();
                 equalBtnUsed = true;
                 break;
 
@@ -324,10 +329,12 @@ function backspace() {
 
 //clears calc display and reset all values to defaults
 function clear() {
-    displayValue = undefined;
+
+displayValue = undefined;
+numberIsDecimal = false;
+equalBtnUsed = false;
+
     display.textContent = undefined;
-    equalBtnUsed = true;
-    numberIsDecimal = false;
     delete expression.value1;
     delete expression.operator;
     delete expression.value2;
