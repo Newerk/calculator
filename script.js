@@ -50,7 +50,6 @@ operatorButtons.forEach(btn => {
         numberIsDecimal = false;
         equalBtnUsed = false;
 
-
         switch (e.target.id) {
             case 'add':
                 if (displayValue === undefined) {
@@ -63,6 +62,7 @@ operatorButtons.forEach(btn => {
                     display.textContent += expression.operator = '+';
                     return;
                 }
+
                 expression['operator'] = '+';
                 display.textContent += expression['operator'];
                 break;
@@ -73,16 +73,16 @@ operatorButtons.forEach(btn => {
                 }
                 determineInputBehavior();
 
-
                 if ('operator' in expression) {
                     expression.value1 = expression.evaluate();
                     display.textContent += expression.operator = '-';
-
                     return;
-
                 }
+
                 expression['operator'] = '-';
                 display.textContent += expression['operator'];
+
+                console.log(`subtracted used`);
                 break;
 
             case 'multiply':
@@ -91,15 +91,12 @@ operatorButtons.forEach(btn => {
                 }
                 determineInputBehavior();
 
-
-
                 if ('operator' in expression) {
                     expression.value1 = expression.evaluate();
                     display.textContent += expression.operator = '*';
-
                     return;
-
                 }
+
                 expression['operator'] = '*';
                 display.textContent += expression['operator'];
                 break;
@@ -110,15 +107,12 @@ operatorButtons.forEach(btn => {
                 }
                 determineInputBehavior();
 
-
-
                 if ('operator' in expression) {
                     expression.value1 = expression.evaluate();
                     display.textContent += expression.operator = '/';
-
                     return;
-
                 }
+
                 expression['operator'] = '/';
                 display.textContent += expression['operator'];
                 break;
@@ -127,22 +121,16 @@ operatorButtons.forEach(btn => {
                 if (displayValue === undefined) {
                     return;
                 }
-
                 determineInputBehavior();
-
-
 
                 if ('operator' in expression) {
                     expression.value1 = expression.evaluate();
                     display.textContent += expression.operator = '^';
-
                     return;
-
                 }
 
                 expression['operator'] = '^';
                 display.textContent += expression['operator'];
-
                 break;
 
         }
@@ -232,8 +220,7 @@ const operate = (operator, x, y) => {
 };
 
 function determineInputBehavior() {
-    ('value1' in expression) ? storeNumTwo() : storeNumOne();
-
+        ('value1' in expression && 'operator' in expression) ? storeNumTwo() : storeNumOne();
 }
 
 
@@ -245,7 +232,10 @@ function storeNumOne() {
 }
 
 function storeNumTwo() {
-    expression['value2'] = parseFloat(display.textContent.substring(display.textContent.indexOf(expression.operator) + 1));
+    expression.value2 = parseFloat(display.textContent.substring(display.textContent.lastIndexOf(expression.operator) + 1));
+    console.log(`display value when stored in num2 = ${displayValue}`)
+
+    // expression['value2'] = displayValue;
     console.log(`${expression['value2']} stored in value 2`)
 
 
@@ -263,7 +253,6 @@ function negativeToggle() {
         displayValue = display.textContent;
         parseFloat(displayValue);
 
-
     } else if (Math.sign(display.textContent) === -1 && equalBtnUsed === true) {
         clearExpression();
         display.textContent *= -1;
@@ -276,6 +265,7 @@ function negativeToggle() {
         display.textContent *= -1;
         displayValue = display.textContent;
         parseFloat(displayValue);
+
 
 
 
@@ -294,12 +284,14 @@ function negativeToggle() {
 }
 
 function addDecimal() {
+    displayValue = display.textContent += '.';
+    parseFloat(displayValue);
     if (numberIsDecimal === false) {
         if (displayValue === undefined) {
             displayValue = 0;
         }
-        displayValue = display.textContent += '.';
-        parseFloat(displayValue);
+
+
         numberIsDecimal = true;
 
     }
@@ -330,9 +322,9 @@ function backspace() {
 //clears calc display and reset all values to defaults
 function clear() {
 
-displayValue = undefined;
-numberIsDecimal = false;
-equalBtnUsed = false;
+    displayValue = undefined;
+    numberIsDecimal = false;
+    equalBtnUsed = false;
 
     display.textContent = undefined;
     delete expression.value1;
