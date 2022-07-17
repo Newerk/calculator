@@ -55,6 +55,7 @@ operatorButtons.forEach(btn => {
             console.log('operator was already pressed');
             return;
         }
+        
 
         switch (e.target.id) {
             case 'add':
@@ -191,20 +192,15 @@ miscButtons.forEach(btn => {
                 break;
 
             case 'equal':
-
-
                 if (displayValue === undefined) {
                     return;
                 }
 
-                //when in doubt, hard refresh the page
-                if ('value2' in expression === false) {
-                    clear();
-                    window.location.reload();
-                }
-
-
                 determineInputBehavior();
+
+                if (isNaN(expression.value2)) {
+                    clear();
+                }
                 expression.evaluate();
                 clearExpression();
                 equalBtnUsed = true;
