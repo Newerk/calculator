@@ -191,9 +191,19 @@ miscButtons.forEach(btn => {
                 break;
 
             case 'equal':
+
+
                 if (displayValue === undefined) {
                     return;
                 }
+
+                //when in doubt, hard refresh the page
+                if ('value2' in expression === false) {
+                    clear();
+                    window.location.reload();
+                }
+
+
                 determineInputBehavior();
                 expression.evaluate();
                 clearExpression();
@@ -356,9 +366,7 @@ function clear() {
     operatorUsed = false;
 
     display.textContent = undefined;
-    delete expression.value1;
-    delete expression.operator;
-    delete expression.value2;
+    clearExpression();
     console.log(expression);
 
 }
