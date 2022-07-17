@@ -1,6 +1,7 @@
 let displayValue = undefined;
 let numberIsDecimal = false;
 let equalBtnUsed = false;
+let operatorUsed = false;
 let display = document.querySelector('#display');
 
 
@@ -39,6 +40,7 @@ numButtons.forEach(btn => {
         }
 
         equalBtnUsed = false;
+        operatorUsed = false;
 
     })
 
@@ -49,12 +51,17 @@ operatorButtons.forEach(btn => {
     btn.addEventListener('click', e => {
         numberIsDecimal = false;
         equalBtnUsed = false;
+        if (operatorUsed === true) {
+            console.log('operator was already pressed');
+            return;
+        }
 
         switch (e.target.id) {
             case 'add':
                 if (displayValue === undefined) {
                     return;
                 }
+
                 determineInputBehavior();
 
                 if ('operator' in expression) {
@@ -65,6 +72,8 @@ operatorButtons.forEach(btn => {
 
                 expression['operator'] = '+';
                 display.textContent += expression['operator'];
+                operatorUsed = true;
+
                 break;
 
             case 'subtract':
@@ -81,6 +90,8 @@ operatorButtons.forEach(btn => {
 
                 expression['operator'] = '-';
                 display.textContent += expression['operator'];
+                operatorUsed = true;
+
 
                 console.log(`subtracted used`);
                 break;
@@ -99,6 +110,8 @@ operatorButtons.forEach(btn => {
 
                 expression['operator'] = '*';
                 display.textContent += expression['operator'];
+                operatorUsed = true;
+
                 break;
 
             case 'divide':
@@ -115,6 +128,8 @@ operatorButtons.forEach(btn => {
 
                 expression['operator'] = '/';
                 display.textContent += expression['operator'];
+                operatorUsed = true;
+
                 break;
 
             case 'exponent':
@@ -131,6 +146,8 @@ operatorButtons.forEach(btn => {
 
                 expression['operator'] = '^';
                 display.textContent += expression['operator'];
+                operatorUsed = true;
+
                 break;
 
         }
@@ -147,12 +164,17 @@ miscButtons.forEach(btn => {
     btn.addEventListener('click', e => {
         switch (e.target.id) {
             case 'decimal':
+                equalBtnUsed = false;
+                operatorUsed = false;
                 addDecimal();
 
                 break;
 
             case 'negative':
+                equalBtnUsed = false;
+                operatorUsed = false;
                 negativeToggle();
+
 
                 break;
 
@@ -162,6 +184,8 @@ miscButtons.forEach(btn => {
                 break;
 
             case 'delete':
+                equalBtnUsed = false;
+                operatorUsed = false;
                 backspace();
 
                 break;
@@ -174,6 +198,7 @@ miscButtons.forEach(btn => {
                 expression.evaluate();
                 clearExpression();
                 equalBtnUsed = true;
+                operatorUsed = false;
                 break;
 
         }
@@ -220,7 +245,7 @@ const operate = (operator, x, y) => {
 };
 
 function determineInputBehavior() {
-        ('value1' in expression && 'operator' in expression) ? storeNumTwo() : storeNumOne();
+    ('value1' in expression && 'operator' in expression) ? storeNumTwo() : storeNumOne();
 }
 
 
@@ -284,6 +309,9 @@ function negativeToggle() {
 }
 
 function addDecimal() {
+    if (numberIsDecimal === true) {
+        return;
+    }
     displayValue = display.textContent += '.';
     parseFloat(displayValue);
     if (numberIsDecimal === false) {
@@ -325,6 +353,7 @@ function clear() {
     displayValue = undefined;
     numberIsDecimal = false;
     equalBtnUsed = false;
+    operatorUsed = false;
 
     display.textContent = undefined;
     delete expression.value1;
