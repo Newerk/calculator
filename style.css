@@ -34,16 +34,16 @@ body {
     justify-content: flex-end;
     flex-direction: column;
     align-items: flex-end;
-    height: 80px;
-    /* border: 1px solid black; */
+    height: 90px;
     margin: 0;
-    overflow: hidden;
-    /* background-color: #12BD94; */
+    overflow-x: auto;
+    white-space: nowrap;
 }
 
 #display {
     margin-right: 52px;
     color: white;
+
 }
 
 .calculator-container {
@@ -51,7 +51,6 @@ body {
     flex-direction: column;
     width: 460px;
     height: fit-content;
-    /* border: 1px solid black; */
     margin-top: 10%;
 
 }

@@ -6,7 +6,6 @@ let display = document.querySelector('#display');
 
 
 
-
 const add = (x, y) => x + y;
 const subtract = (x, y) => x - y;
 const multiply = (x, y) => x * y;
