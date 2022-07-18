@@ -1,9 +1,23 @@
+* {
+    font-family: 'Baloo 2', cursive;
+    font-family: 'IBM Plex Sans', sans-serif;
+
+}
+
+
 button {
     height: 41px;
     width: 115px;
     border: 1px solid black;
     padding: 0;
+    background-color: black;
+    color: white;
+    font-size: large;
 
+}
+
+#decimal {
+font-weight: 600;
 }
 
 
@@ -11,7 +25,7 @@ body {
     display: flex;
     justify-content: center;
     font-size: 38px;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: black;
 
 }
 
@@ -21,13 +35,15 @@ body {
     flex-direction: column;
     align-items: flex-end;
     height: 80px;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     margin: 0;
-
+    overflow: hidden;
+    /* background-color: #12BD94; */
 }
 
 #display {
-    margin-right: 5px;
+    margin-right: 52px;
+    color: white;
 }
 
 .calculator-container {
@@ -35,8 +51,9 @@ body {
     flex-direction: column;
     width: 460px;
     height: fit-content;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     margin-top: 10%;
+
 }
 
 .row-one,
@@ -45,4 +62,14 @@ body {
 .row-four,
 .row-five {
     display: flex;
+}
+
+.misc,
+.operators {
+    background-color: black;
+    color: rgb(1, 170, 1);
+}
+
+#clear {
+    color: red
 }
